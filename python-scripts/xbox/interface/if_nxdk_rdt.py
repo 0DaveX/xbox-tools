@@ -2,9 +2,11 @@ from . import api
 from . import get_xbox_address
 import socket
 from .dbg_pb2 import *
+from ctypes import c_uint
 
 (HOST, PORT) = get_xbox_address(9269)
-
+print("HOST: "+str(HOST));
+print("PORT: "+str(PORT));
 rdt = socket.create_connection((HOST, PORT), 5)
 
 def _send_simple_request(req, buffer_size=256):

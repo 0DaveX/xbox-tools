@@ -21,6 +21,12 @@ def AvSendTVEncoderOption(RegisterBase, Option, Param, Result):
   #OUT PULONG Result
   call_stdcall(2, "<IIII", RegisterBase, Option, Param, Result)
 
+#def DbgPrint(Format, arguments): #PCHAR Format
+  #return call_stdcall(8, "<II", Format, arguments) #todo!
+
+def HalWriteSMBusValue(devddress, offset, writedw, data): #UCHAR devddress, UCHAR offset, UCHAR writedw, DWORD data):
+  return call_stdcall(50, "<IIII", devddress, offset, writedw, data) 
+
 def IoDeviceObjectType():
   return pe.resolve_export(70)
 
@@ -34,6 +40,18 @@ def IoSynchronousDeviceIoControlRequest(IoControlCode, DeviceObject, InputBuffer
   #OUT PULONG ReturnedOutputBufferLength OPTIONAL,
   #IN BOOLEAN InternalDeviceIoControl) # FIXME: How to handle this one properly? xxxB? Bxxx? I?
   return call_stdcall(84, "<IIIIIIII", IoControlCode, DeviceObject, InputBuffer, InputBufferLength, OutputBuffer, OutputBufferLength, ReturnedOutputBufferLength, InternalDeviceIoControl)
+
+def KeQueryPerformanceCounter():
+  #Kernel/KeQueryPerformanceCounter  126   stdcall 
+  # BOOL WINAPI QueryPerformanceCounter(
+  #   _Out_ LARGE_INTEGER *lpPerformanceCount
+  # );
+
+  # we need some mem (4Byte)
+  pointer =  MmAllocateContiguousMemory(4)
+  #call_stdcall(126, "<I", pointer)
+
+  return pointer; #mem.read32(pointer) ;
 
 def KeTickCount():
   return pe.resolve_export(156)
