@@ -24,6 +24,12 @@ def AvSendTVEncoderOption(RegisterBase, Option, Param, Result):
 #def DbgPrint(Format, arguments): #PCHAR Format
   #return call_stdcall(8, "<II", Format, arguments) #todo!
 
+def HalReadWritePCISpace(BusNumber, SlotNumber, RegisterNumber, Buffer, Length, WritePCISpace): #PVOID   Buffer
+  return call_stdcall(46, "<IIIIII", BusNumber, SlotNumber, RegisterNumber, Buffer, Length, WritePCISpace)
+
+def HalReturnToFirmware(command):   #FIXME untested
+  return call_stdcall(49, "<I", command)
+
 def HalWriteSMBusValue(devddress, offset, writedw, data): #UCHAR devddress, UCHAR offset, UCHAR writedw, DWORD data):
   return call_stdcall(50, "<IIII", devddress, offset, writedw, data) 
 

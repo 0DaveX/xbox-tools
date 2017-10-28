@@ -23,9 +23,12 @@ if __name__ == "__main__":
 
     memAddrDataValue = ke.MmAllocateContiguousMemory(4)
     ke.HalWriteSMBusValue(0x20, 0x0C, 0, memAddrDataValue)
+    ke.HalWriteSMBusValue(0x20, 0x0C, 0, 0x0)
     value = memory.read_u32(memAddrDataValue)
 
     print("value: " + str(value))
+
+    ke.HalReturnToFirmware(0x0) #? reboots
 
     time.sleep(1.02)
     print("done");
