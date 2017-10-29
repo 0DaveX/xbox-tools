@@ -59,6 +59,9 @@ def KeQueryPerformanceCounter():
 
   return pointer; #mem.read32(pointer) ;
 
+def KeInterruptTime(): #PKSYSTEM_TIME
+  return pe.resolve_export(120)
+
 def KeTickCount():
   return pe.resolve_export(156)
 
