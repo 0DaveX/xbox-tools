@@ -62,8 +62,13 @@ def IoSynchronousDeviceIoControlRequest(IoControlCode, DeviceObject, InputBuffer
 def KeInterruptTime(): #PKSYSTEM_TIME
   return pe.resolve_export(120)
 
-def KeQueryPerformanceCounter(PerformanceFrequencyPointer): #PLARGE_INTEGER PerformanceFrequency
-  call_stdcall(126, "<I", PerformanceFrequencyPointer)
+def KeQueryPerformanceCounter(): #PLARGE_INTEGER PerformanceFrequency
+  #call_stdcall(126, "<I", PerformanceFrequencyPointer)
+  return pe.resolve_export(126)
+
+def KeQueryPerformanceFrequency(): #pLargeInteger
+  #call_stdcall(127, "<I", lpFrequency)
+  return pe.resolve_export(127)
 
 def KeTickCount():
   return pe.resolve_export(156)

@@ -13,16 +13,26 @@ if __name__ == "__main__":
 
     print("Hallo: ")
 
-    memAddrQueryPerformanceCounter = ke.MmAllocateContiguousMemory(8)
-    print("memAddrQueryPerformanceCounter: " + str(memAddrQueryPerformanceCounter))
+    #memAddrQueryPerformanceFreq = ke.MmAllocateContiguousMemory(4)
+    #print("memAddrQueryPerformanceFreq: " + str(memAddrQueryPerformanceFreq))
+    #ke.KeQueryPerformanceFrequency(memAddrQueryPerformanceFreq)
+    #QPC_Freq = memory.read_u32(memAddrQueryPerformanceFreq)
+    QPC_Freq = ke.KeQueryPerformanceFrequency();
+    print("QPC_Freq: " + str(QPC_Freq))
+    print()
+
+
+    #memAddrQueryPerformanceCounter = ke.MmAllocateContiguousMemory(8)
+    #print("memAddrQueryPerformanceCounter: " + str(memAddrQueryPerformanceCounter))
 
     i = 0;
     while(i < 10):
-     ke.KeQueryPerformanceCounter(memAddrQueryPerformanceCounter)
-     QPC_LowPart = memory.read_u32(memAddrQueryPerformanceCounter)
-     QPC_HighPart = memory.read_u32(memAddrQueryPerformanceCounter +0x1)
-     print("QPC_LowPart: " + str(QPC_LowPart))
-     print("QPC_HighPart: " + str(QPC_HighPart))
+     #ke.KeQueryPerformanceCounter(memAddrQueryPerformanceCounter)
+     #QPC_LowPart = memory.read_u32(memAddrQueryPerformanceCounter)
+     #QPC_HighPart = memory.read_u32(memAddrQueryPerformanceCounter +0x1)
+     #print("QPC_LowPart: " + str(QPC_LowPart))
+     #print("QPC_HighPart: " + str(QPC_HighPart))
+     print("QPC: " + str(ke.KeQueryPerformanceCounter()))
      i += 1
      time.sleep(1.1)
 
