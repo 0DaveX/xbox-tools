@@ -12,8 +12,19 @@ if __name__ == "__main__":
 
 
     print("Hallo: ")
-    KeQPC = ke.KeQueryPerformanceCounter()
-    print("KeQPC: " + str(KeQPC)) #FIX KeQPC name
+
+    memAddrQueryPerformanceCounter = ke.MmAllocateContiguousMemory(8)
+    print("memAddrQueryPerformanceCounter: " + str(memAddrQueryPerformanceCounter))
+
+    i = 0;
+    while(i < 10):
+     ke.KeQueryPerformanceCounter(memAddrQueryPerformanceCounter)
+     QPC_LowPart = memory.read_u32(memAddrQueryPerformanceCounter)
+     QPC_HighPart = memory.read_u32(memAddrQueryPerformanceCounter +0x1)
+     print("QPC_LowPart: " + str(QPC_LowPart))
+     print("QPC_HighPart: " + str(QPC_HighPart))
+     i += 1
+     time.sleep(1.1)
 
     # IN UCHAR   Address,
     # IN UCHAR   Command,
@@ -55,7 +66,7 @@ if __name__ == "__main__":
 
 
     i = 0;
-    while(i < 10):
+    while(i < 0):
       LowPart = memory.read_u32(PKSYSTEM_TIME_addr)
       High1Time = memory.read_u32(PKSYSTEM_TIME_addr + 0x1)
       High2Time = memory.read_u32(PKSYSTEM_TIME_addr + 0x2)

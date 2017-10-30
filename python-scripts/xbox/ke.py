@@ -47,20 +47,23 @@ def IoSynchronousDeviceIoControlRequest(IoControlCode, DeviceObject, InputBuffer
   #IN BOOLEAN InternalDeviceIoControl) # FIXME: How to handle this one properly? xxxB? Bxxx? I?
   return call_stdcall(84, "<IIIIIIII", IoControlCode, DeviceObject, InputBuffer, InputBufferLength, OutputBuffer, OutputBufferLength, ReturnedOutputBufferLength, InternalDeviceIoControl)
 
-def KeQueryPerformanceCounter():
+#def KeQueryPerformanceCounter():
   #Kernel/KeQueryPerformanceCounter  126   stdcall 
   # BOOL WINAPI QueryPerformanceCounter(
   #   _Out_ LARGE_INTEGER *lpPerformanceCount
   # );
 
   # we need some mem (4Byte)
-  pointer =  MmAllocateContiguousMemory(4)
+  #pointer =  MmAllocateContiguousMemory(4)
   #call_stdcall(126, "<I", pointer)
 
-  return pointer; #mem.read32(pointer) ;
+ # return pointer; #mem.read32(pointer) ;
 
 def KeInterruptTime(): #PKSYSTEM_TIME
   return pe.resolve_export(120)
+
+def KeQueryPerformanceCounter(PerformanceFrequencyPointer): #PLARGE_INTEGER PerformanceFrequency
+  call_stdcall(126, "<I", PerformanceFrequencyPointer)
 
 def KeTickCount():
   return pe.resolve_export(156)
