@@ -64,11 +64,11 @@ def KeInterruptTime(): #PKSYSTEM_TIME
 
 def KeQueryPerformanceCounter(): #PLARGE_INTEGER PerformanceFrequency
   #call_stdcall(126, "<I", PerformanceFrequencyPointer)
-  return pe.resolve_export(126)
+  return call_stdcall(126, "");
 
 def KeQueryPerformanceFrequency(): #pLargeInteger
   #call_stdcall(127, "<I", lpFrequency)
-  return pe.resolve_export(127)
+  return call_stdcall(127,"");
 
 def KeTickCount():
   return pe.resolve_export(156)
